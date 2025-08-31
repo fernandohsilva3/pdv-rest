@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Relatórios de Vendas</h1>
+  <form method="get" action="/admin/reports">
+    <label>De (YYYY-MM-DD ou ISO)
+      <input type="date" name="from_date" value="{{ from_date }}">
+    </label>
+    <label>Até
+      <input type="date" name="to_date" value="{{ to_date }}">
+    </label>
+    <div class="row">
+      <input type="submit" value="Filtrar">
+    </div>
+  </form>
+
+  <h3>Total do período: {{ total_sum }}</h3>
+
+  <table>
+    <thead><tr><th>ID</th><th>Data/Hora</th><th>Mesa</th><th>Total</th><th>Itens</th></tr></thead>
+    <tbody>
+      {% for o in orders %}
+        <tr>
+          <td>{{ o.id }}</td>
+          <td>{{ o.created_at }}</td>
+          <td>{% if o.table_id %}{{ o.table_id }}{% else %}-{% endif %}</td>
+          <td>{{ "%.2f"|format(o.total) }}</td>
+          <td>
+            <ul>
+              {% for it in o.items %}
+                <li>
+                  {% set p = namespace(prod=None) %}{% for prod in it.__dict__.values() %}{% endfor %}
+                  {{ it.product_id }} x{{ it.quantity }} — {{ "%.2f"|format(it.subtotal) }}
+                </li>
+              {% endfor %}
+            </ul>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Mesas</h1>
+  <form method="post" action="/admin/tables/new">
+    <label>Nome da mesa (ex: Mesa 1)
+      <br>
+      <input type="text" name="name" required>
+    </label>
+    <div class="row">
+      <input type="submit" value="Adicionar Mesa">
+    </div>
+  </form>
+
+  <table>
+    <thead><tr><th>ID</th><th>Nome</th></tr></thead>
+    <tbody>
+      {% for t in tables %}
+        <tr><td>{{ t.id }}</td><td>{{ t.name }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

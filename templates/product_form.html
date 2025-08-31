@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Produto</h1>
+  <form method="post" action="{{ action }}">
+    <label>Nome
+      <br>
+      <input type="text" name="name" value="{{ name }}" required>
+    </label>
+    <label>Preço
+      <br>
+      <input type="number" name="price" value="{{ price }}" step="0.01" min="0" required>
+    </label>
+    <div class="row">
+      <input type="submit" value="Salvar">
+      <a class="button" href="/">Cancelar</a>
+    </div>
+  </form>
+{% endblock %}

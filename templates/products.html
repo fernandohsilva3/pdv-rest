@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="topbar">
+  <h1>Produtos</h1>
+  <div>
+    <a class="button" href="/admin/new">+ Novo produto</a>
+  </div>
+</div>
+<table>
+  <thead>
+    <tr><th>ID</th><th>Nome</th><th>Preço</th><th>Ações</th></tr>
+  </thead>
+  <tbody>
+    {% for p in products %}
+      <tr>
+        <td>{{ p.id }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ "%.2f"|format(p.price) }}</td>
+        <td class="row">
+          <a class="button" href="/admin/edit/{{ p.id }}">Editar</a>
+          <a class="button" href="/admin/delete/{{ p.id }}">Remover</a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if not products %}
+  <p>Nenhum produto cadastrado.</p>
+{% endif %}
+
+<h2>Mesas</h2>
+<a class="button" href="/admin/tables">Gerenciar Mesas</a>
+{% endblock %}
